@@ -14,7 +14,7 @@ html {
 
 body {
     min-height: 100vh;
-    background-color: rgb(231, 154, 0);
+    background-color: rgb(255, 202, 95);
 }
 
 .App {
@@ -29,12 +29,13 @@ body {
 section {
     width: 100%;
     max-width: 420px;
-    min-height: 400px;
+    min-height: 200px;
+    border-radius: 0.4rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 1rem;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.4);
 }
 
 form {
@@ -62,7 +63,9 @@ textarea {
 
 label,
 button {
-  margin-top: 1rem;
+  text-decoration: none;  
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 button {
@@ -113,3 +116,5 @@ button {
 .line {
     display: inline-block;
 }
+
+

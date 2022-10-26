@@ -13,16 +13,16 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/register";
 
 const Register = () => {
-  const CompanyNameRef = useRef();
+  const supplierNameRef = useRef();
   const errRef = useRef();
 
-  const [companyName, setCompanyName] = useState("");
-  const [validCompanyName, setValidCompanyName] = useState(false);
-  const [companyNameFocus, setCompanyNameFocus] = useState(false);
+  const [supplierName, setSupplierName] = useState("");
+  const [validSupplierName, setValidSupplierName] = useState(false);
+  const [supplierNameFocus, setSupplierNameFocus] = useState(false);
 
-  const [companyEmail, setCompanyEmail] = useState("");
-  const [validCompanyEmail, setValidCompanyEmail] = useState(false);
-  const [companyEmailFocus, setCompanyEmailFocus] = useState(false);
+  const [supplierEmail, setSupplierEmail] = useState("");
+  const [validSupplierEmail, setValidSupplierEmail] = useState(false);
+  const [supplierEmailFocus, setSupplierEmailFocus] = useState(false);
 
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
@@ -36,22 +36,22 @@ const Register = () => {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    CompanyNameRef.current.focus();
+    supplierNameRef.current.focus();
   }, []);
 
   useEffect(() => {
-    const result = COMPANY_REGEX.test(companyName);
+    const result = COMPANY_REGEX.test(supplierName);
     console.log(result);
-    console.log(companyName);
-    setValidCompanyName(result);
-  }, [companyName]);
+    console.log(supplierName);
+    setValidSupplierName(result);
+  }, [supplierName]);
 
   useEffect(() => {
-    const result = EMAIL_REGEX.test(companyEmail);
+    const result = EMAIL_REGEX.test(supplierEmail);
     console.log(result);
-    console.log(companyEmail);
-    setValidCompanyEmail(result);
-  }, [companyEmail]);
+    console.log(supplierEmail);
+    setValidSupplierEmail(result);
+  }, [supplierEmail]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
@@ -64,19 +64,19 @@ const Register = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [companyName, companyEmail, pwd, matchPwd]);
+  }, [supplierName, supplierEmail, pwd, matchPwd]);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const confirmCompanyName = COMPANY_REGEX.test(companyName);
-    const confirmEmail = EMAIL_REGEX.test(companyEmail);
+    const confirmCompanyName = COMPANY_REGEX.test(supplierName);
+    const confirmEmail = EMAIL_REGEX.test(supplierEmail);
     const confirmPwd = PWD_REGEX.test(pwd);
     if (!confirmCompanyName || !confirmEmail || !confirmPwd ){
         setErrMsg("Invalid Entry/Entries");
         return;
     }
-    console.log(companyName, companyEmail, pwd);
+    console.log(supplierName, supplierEmail, pwd);
     setSuccess(true);
 
   }
@@ -90,37 +90,37 @@ const Register = () => {
       >
         {errMsg}
       </p>
-      <h1>Register</h1>
+      <h1>Register Supplier Account</h1>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="companyname">
-          Company Name:
+        <label htmlFor="suppliername">
+          Supplier Name:
           <FontAwesomeIcon
             icon={faCheck}
-            className={validCompanyName ? "valid" : "hide"}
+            className={validSupplierName ? "valid" : "hide"}
           />
           <FontAwesomeIcon
             icon={faTimes}
-            className={validCompanyName || !companyName ? "hide" : "invalid"}
+            className={validSupplierName || !supplierName ? "hide" : "invalid"}
           />
         </label>
         <input
           type="text"
-          id="companyname" /* username -> companyname*/
-          ref={CompanyNameRef}
+          id="suppliername" /* username -> companyname*/
+          ref={supplierNameRef}
           autoComplete="off"
-          onChange={(e) => setCompanyName(e.target.value)}
-          value={companyName}
+          onChange={(e) => setSupplierName(e.target.value)}
+          value={supplierName}
           required
-          aria-invalid={validCompanyName ? "false" : "true"}
+          aria-invalid={validSupplierName ? "false" : "true"}
           aria-describedby="uidnote"
-          onFocus={() => setCompanyNameFocus(true)}
-          onBlur={() => setCompanyNameFocus(false)}
+          onFocus={() => setSupplierNameFocus(true)}
+          onBlur={() => setSupplierNameFocus(false)}
         />
         <p
           id="cnidnote" /*uidnote -> cnidnote*/
           className={
-            companyNameFocus && companyName && !validCompanyName ? "instructions" : "offscreen"
+            supplierNameFocus && supplierName && !validSupplierName ? "instructions" : "offscreen"
           }
         >
           <FontAwesomeIcon icon={faInfoCircle} />
@@ -131,34 +131,34 @@ const Register = () => {
           Letters, numbers, underscores, hyphens allowed.
         </p>
 
-        <label htmlFor="companyemail">
-          Company Email:
+        <label htmlFor="supplieremail">
+          Supplier Email:
           <FontAwesomeIcon
             icon={faCheck}
-            className={validCompanyEmail ? "valid" : "hide"}
+            className={validSupplierEmail ? "valid" : "hide"}
           />
           <FontAwesomeIcon
             icon={faTimes}
-            className={validCompanyEmail || !companyEmail ? "hide" : "invalid"}
+            className={validSupplierEmail || !supplierEmail ? "hide" : "invalid"}
           />
         </label>
         <input
           type="email"
-          id="companyemail" /* username -> companyemail*/
-          ref={CompanyNameRef}
+          id="supplieremail" /* username -> companyemail*/
+          ref={supplierNameRef}
           autoComplete="off"
-          onChange={(e) => setCompanyEmail(e.target.value)}
-          value={companyEmail}
+          onChange={(e) => setSupplierEmail(e.target.value)}
+          value={supplierEmail}
           required
-          aria-invalid={validCompanyEmail ? "false" : "true"}
+          aria-invalid={validSupplierEmail ? "false" : "true"}
           aria-describedby="uidnote"
-          onFocus={() => setCompanyEmailFocus(true)}
-          onBlur={() => setCompanyEmailFocus(false)}
+          onFocus={() => setSupplierEmailFocus(true)}
+          onBlur={() => setSupplierEmailFocus(false)}
         />
         <p
           id="emailnote" /*uidnote -> emailnote*/
           className={
-            companyEmailFocus && companyEmail && !validCompanyEmail ? "instructions" : "offscreen"
+            supplierEmailFocus && supplierEmail && !validSupplierEmail ? "instructions" : "offscreen"
           }
         >
           <FontAwesomeIcon icon={faInfoCircle} />
@@ -236,7 +236,7 @@ const Register = () => {
         </p>
 
         <button
-          disabled={!validCompanyName || !validCompanyEmail || !validPwd || !validMatch ? true : false}
+          disabled={!validSupplierName || !validSupplierEmail || !validPwd || !validMatch ? true : false}
         >
           Sign Up
         </button>
