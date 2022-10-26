@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/SOEN-341---Project/precache-manifest.c56ea397bd495cb769ebc4dd21db4a89.js"
+  "/SOEN-341---Project/precache-manifest.33459693e3917a54580271a2d919f28d.js"
 );
 
 workbox.clientsClaim();
