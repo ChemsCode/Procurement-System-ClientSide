@@ -240,6 +240,14 @@ const Register = () => {
         >
           Sign Up
         </button>
+        <p>
+        Already registered?
+        <br />
+        <span className="line">
+          {/*put router link here*/}
+          <a href="/login">Sign In</a>
+        </span>
+      </p>
       </form>
     </section>
   );
