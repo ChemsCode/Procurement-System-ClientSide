@@ -22,17 +22,17 @@ const Home = () => {
       <br />
       <p>You are logged in!</p>
       <button>
-        <Link style={StyledLink} to="/editor">
+        <Link style={StyledLink} to="/supplier">
           Supplier Page
         </Link>
       </button>
       <button>
-        <Link style={StyledLink} to="/admin">
+        <Link style={StyledLink} to="/company">
           Company Page
         </Link>
       </button>
       <button>
-        <Link style={StyledLink} to="/lounge">
+        <Link style={StyledLink} to="/employee">
           Employee Page
         </Link>
       </button>

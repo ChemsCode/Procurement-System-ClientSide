@@ -4,7 +4,7 @@ import Users from './Users';
 const Admin = () => {
     return (
         <section>
-            <h1>Company page</h1>
+            <h1>Request for items Above $5000</h1>
             <br />
             <Users />
             <div className="flexGrow">

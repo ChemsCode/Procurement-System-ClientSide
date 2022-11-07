@@ -6,11 +6,14 @@ import SupplierPage from "./components/SupplierPage";
 import CompanyPage from "./components/CompanyPage";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
-import EmployeePage from "./components/EmployeePage";
+import QuoteRequestPage from "./components/QuoteRequestPage";
 import LoginRegisterPage from "./components/LoginRegisterPage";
 import RequireAuth from "./components/RequireAuth";
-import { Routes, Route } from "react-router-dom";
 import PersistLogin from "./components/PersistLogin";
+import EmployeePage from "./components/EmployeePage";
+import PurchaseItemsPage from "./components/PurchaseItemsPage";
+import { Routes, Route } from "react-router-dom";
+
 
 const ROLES = {
   User: 2001,
@@ -38,17 +41,19 @@ function App() {
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Supplier]} />}>
-            <Route path="editor" element={<SupplierPage />} />
+            <Route path="supplier" element={<SupplierPage />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Company]} />}>
-            <Route path="admin" element={<CompanyPage />} />
+            <Route path="company" element={<CompanyPage />} />
           </Route>
 
           <Route
             element={<RequireAuth allowedRoles={[ROLES.Employee]} />}
           >
-            <Route path="lounge" element={<EmployeePage />} />
+            <Route path="employee" element={<EmployeePage />} />
+            <Route path="quote-request" element={<QuoteRequestPage />} />
+            <Route path="purchase-items" element={<PurchaseItemsPage />} />
           </Route>
         </Route>
         {/* catch all */}
