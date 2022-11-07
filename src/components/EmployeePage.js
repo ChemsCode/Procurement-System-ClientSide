@@ -9,24 +9,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios, { axiosPrivate } from "../api/axios";
 import { Link } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate } from "react-router-dom"
 
-const EMPLOYEES_URL = "/employees";
+const ITEM_REQUEST_URL = "/itemRequests";
 
 const NAME_REGEX =
   /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
 
 const Lounge = () => {
+  const navigate = useNavigate();
+  const goBack = () => navigate(-1);
+
   const userNameRef = useRef();
   const errRef = useRef();
   const axiosPrivate = useAxiosPrivate();
 
-  const [firstName, setFirstName] = useState("");
-  const [validFirstName, setValidFirstName] = useState(false);
-  const [firstNameFocus, setFirstNameFocus] = useState(false);
-
-  const [lastName, setLastName] = useState("");
-  const [validLastName, setValidLastName] = useState(false);
-  const [lastNameFocus, setLastNameFocus] = useState(false);
+  const [itemRequest, setItemRequest] = useState("");
+  const [validItemRequest, setValidItemRequest] = useState(false);
+  const [itemRequestFocus, setItemRequestFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -36,35 +36,27 @@ const Lounge = () => {
   }, []);
 
   useEffect(() => {
-    const result = NAME_REGEX.test(firstName);
+    const result = NAME_REGEX.test(itemRequest);
     console.log(result);
-    console.log(firstName);
-    setValidFirstName(result);
-  }, [firstName]);
-
-  useEffect(() => {
-    const result = NAME_REGEX.test(lastName);
-    console.log(result);
-    console.log(lastName);
-    setValidLastName(result);
-  }, [lastName]);
+    console.log(itemRequest);
+    setValidItemRequest(result);
+  }, [itemRequest]);
 
   useEffect(() => {
     setErrMsg("");
-  }, [firstName, lastName]);
+  }, [itemRequest]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const confirmFirstName = NAME_REGEX.test(firstName);
-    const confirmLastName = NAME_REGEX.test(lastName);
-    if (!confirmFirstName || !confirmLastName) {
-      setErrMsg("Invalid Entry/Entries");
+    const confirmItemRequest = NAME_REGEX.test(itemRequest);
+    if (!confirmItemRequest) {
+      setErrMsg("Invalid Entry");
       return;
     }
     try {
       const response = await axiosPrivate.post(
-        EMPLOYEES_URL,
-        JSON.stringify({ firstname: firstName, lastname: lastName }),
+        ITEM_REQUEST_URL,
+        JSON.stringify({ itemName: itemRequest }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -76,15 +68,14 @@ const Lounge = () => {
       setSuccess(true);
       //clear state and controlled inputs
       //need value attrib on inputs for this
-      setFirstName("");
-      setLastName("");
+      setItemRequest("");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
+        setErrMsg("Item Allready Requested!");
       } else {
-        setErrMsg("Registration Failed");
+        setErrMsg("Item Allready Requested?");
       }
       errRef.current.focus();
     }
@@ -108,37 +99,37 @@ const Lounge = () => {
           >
             {errMsg}
           </p>
-          <h1>Add new employee do DB</h1>
+          <h1>Request Item</h1>
 
           <form onSubmit={handleSubmit}>
-            <label htmlFor="firstname">
-              First Name:
+            <label htmlFor="itemName">
+              Request Item:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={firstName ? "valid" : "hide"}
+                className={itemRequest ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validFirstName || !firstName ? "hide" : "invalid"}
+                className={validItemRequest || !itemRequest ? "hide" : "invalid"}
               />
             </label>
             <input
               type="text"
-              id="firstname" /* username -> companyname*/
+              id="itemName" /* username -> companyname*/
               ref={userNameRef}
               autoComplete="off"
-              onChange={(e) => setFirstName(e.target.value)}
-              value={firstName}
+              onChange={(e) => setItemRequest(e.target.value)}
+              value={itemRequest}
               required
-              aria-invalid={validFirstName ? "false" : "true"}
+              aria-invalid={validItemRequest ? "false" : "true"}
               aria-describedby="uidnote"
-              onFocus={() => setFirstNameFocus(true)}
-              onBlur={() => setFirstNameFocus(false)}
+              onFocus={() => setItemRequestFocus(true)}
+              onBlur={() => setItemRequestFocus(false)}
             />
             <p
               id="cnidnote" /*uidnote -> cnidnote*/
               className={
-                firstNameFocus && firstName && !validFirstName
+                itemRequestFocus && itemRequest && !validItemRequest
                   ? "instructions"
                   : "offscreen"
               }
@@ -151,50 +142,15 @@ const Lounge = () => {
               Letters, numbers, underscores, hyphens allowed.
             </p>
 
-            <label htmlFor="lastname">
-              Last Name:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={lastName ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validLastName || !lastName ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="text"
-              id="lastname" /* username -> companyname*/
-              ref={userNameRef}
-              autoComplete="off"
-              onChange={(e) => setLastName(e.target.value)}
-              value={lastName}
-              required
-              aria-invalid={validLastName ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setLastNameFocus(true)}
-              onBlur={() => setLastNameFocus(false)}
-            />
-            <p
-              id="cnidnote" /*uidnote -> cnidnote*/
-              className={
-                lastNameFocus && lastName && !validLastName
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </p>
 
-            <button disabled={!validFirstName || !validLastName ? true : false}>
+            <button disabled={!validItemRequest? true : false}>
               Send Data
             </button>
           </form>
+
+          <div className="flexGrow">
+                <button onClick={goBack}>Go Back</button>
+            </div>
         </section>
       )}
     </>
