@@ -1,17 +1,17 @@
-import { Link } from "react-router-dom"
-import Users from './Users';
+import { Link, useNavigate } from "react-router-dom"
 
-const Admin = () => {
+const CompanyPage = () => {
+    const navigate = useNavigate();
+    const goBack = () => navigate(-1);
     return (
         <section>
-            <h1>Request for items Above $5000</h1>
+            <h1>Requests for items Above $5000</h1>
             <br />
-            <Users />
             <div className="flexGrow">
-                <Link to="/">Home</Link>
+                <button onClick={goBack}>Go Back</button>
             </div>
         </section>
     )
 }
 
-export default Admin
+export default CompanyPage

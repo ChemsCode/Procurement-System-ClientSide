@@ -16,6 +16,19 @@ body {
     min-height: 100vh;
     background-color: rgb(255, 202, 95);
 }
+ul{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+li{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
 
 .App {
   display: flex;
@@ -122,4 +135,10 @@ button {
     height: 20px;
     width: 20px;
     margin: 0 5px 2px 2px;
+}
+
+#addQuote{
+    padding: 0.1rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
 }

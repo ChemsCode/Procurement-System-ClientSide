@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Admin = () => {
+const PurchaseItemsPage = () => {
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
     return (
@@ -14,4 +14,4 @@ const Admin = () => {
     )
 }
 
-export default Admin
+export default PurchaseItemsPage
