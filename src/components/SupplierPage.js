@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom"
-import Users from './Users';
 
-const Admin = () => {
+const Editor = () => {
     return (
         <section>
-            <h1>Admins Page</h1>
+            <h1>Supplier Page</h1>
             <br />
-            <Users />
+            <p>Page used to give quotes.</p>
             <div className="flexGrow">
                 <Link to="/">Home</Link>
             </div>
@@ -14,4 +13,4 @@ const Admin = () => {
     )
 }
 
-export default Admin
+export default Editor

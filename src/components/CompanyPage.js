@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
+import Users from './Users';
 
-const Editor = () => {
+const Admin = () => {
     return (
         <section>
-            <h1>Editors Page</h1>
+            <h1>Company page</h1>
             <br />
-            <p>You must have been assigned an Editor role.</p>
+            <Users />
             <div className="flexGrow">
                 <Link to="/">Home</Link>
             </div>
@@ -13,4 +14,4 @@ const Editor = () => {
     )
 }
 
-export default Editor
+export default Admin
