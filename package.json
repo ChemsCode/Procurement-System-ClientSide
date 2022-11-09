@@ -1,7 +1,7 @@
 {
   "name": "procurement-system",
   "version": "0.1.0",
-  "homepage": "https://ChemsCode.github.io/SOEN-341---Project",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
