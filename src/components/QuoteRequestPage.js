@@ -1,4 +1,3 @@
-import React from "react";
 import { useRef, useState, useEffect } from "react";
 import {
   faCheck,
@@ -6,7 +5,6 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios, { axiosPrivate } from "../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
