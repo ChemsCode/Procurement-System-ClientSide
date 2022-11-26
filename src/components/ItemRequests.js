@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import ItemQuotePopup from "./ItemQuotePopup";
 
 const ItemRequests = () => {
   const [itemRequests, setItemRequests] = useState();
@@ -42,7 +43,7 @@ const ItemRequests = () => {
           {itemRequests.map((itemRequest, i) => (
             <li key={i}>
               {itemRequest?.itemName}
-                <button id="addQuote">Add Quote</button>
+                <ItemQuotePopup itemName={itemRequest?.itemName}/>
             </li>
           ))}
         </ul>
