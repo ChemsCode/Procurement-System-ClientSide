@@ -38,10 +38,12 @@ const Login = () => {
           withCredentials: true,
         }
       );
+      console.log("marker")
       console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      setAuth({ user: userName, pwd, roles, accessToken });
+      const company = response?.data?.companyname;
+      setAuth({ user: userName, pwd, roles, accessToken, company });
       setUserName("");
       setPwd("");
       navigate(from, { replace: true });

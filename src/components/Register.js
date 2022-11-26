@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const NAME_REGEX =
   /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
-const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const COMPANY_REGEX = /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/register";
 
@@ -22,9 +22,9 @@ const RegisterUser = () => {
   const [validUserName, SetValidUserName] = useState(false);
   const [userNameFocus, setUserNameFocus] = useState(false);
 
-  const [companyEmail, setCompanyEmail] = useState("");
-  const [validCompanyEmail, setValidCompanyEmail] = useState(false);
-  const [companyEmailFocus, setCompanyEmailFocus] = useState(false);
+  const [companyName, setCompanyName] = useState("");
+  const [validCompanyName, setValidCompanyName] = useState(false);
+  const [companyNameFocus, setCompanyNameFocus] = useState(false);
 
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
@@ -49,11 +49,11 @@ const RegisterUser = () => {
   }, [userName]);
 
   useEffect(() => {
-    const result = EMAIL_REGEX.test(companyEmail);
+    const result = COMPANY_REGEX.test(companyName);
     console.log(result);
-    console.log(companyEmail);
-    setValidCompanyEmail(result);
-  }, [companyEmail]);
+    console.log(companyName);
+    setValidCompanyName(result);
+  }, [companyName]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
@@ -66,12 +66,12 @@ const RegisterUser = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [userName, companyEmail, pwd, matchPwd]);
+  }, [userName, companyName, pwd, matchPwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const confirmCompanyName = NAME_REGEX.test(userName);
-    const confirmEmail = EMAIL_REGEX.test(companyEmail);
+    const confirmEmail = COMPANY_REGEX.test(companyName);
     const confirmPwd = PWD_REGEX.test(pwd);
     if (!confirmCompanyName || !confirmEmail || !confirmPwd) {
       setErrMsg("Invalid Entry/Entries");
@@ -80,7 +80,7 @@ const RegisterUser = () => {
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ user : userName, pwd : pwd }),
+        JSON.stringify({ user : userName, company : companyName, pwd : pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -169,41 +169,45 @@ const RegisterUser = () => {
             </p>
 
             <label htmlFor="companyemail">
-              Company Email:
+              Company Name:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validCompanyEmail ? "valid" : "hide"}
+                className={validCompanyName ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
                 className={
-                  validCompanyEmail || !companyEmail ? "hide" : "invalid"
+                  validCompanyName || !companyName ? "hide" : "invalid"
                 }
               />
             </label>
             <input
-              type="email"
+              type="text"
               id="companyemail" /* username -> companyemail*/
               ref={userNameRef}
               autoComplete="off"
-              onChange={(e) => setCompanyEmail(e.target.value)}
-              value={companyEmail}
+              onChange={(e) => setCompanyName(e.target.value)}
+              value={companyName}
               required
-              aria-invalid={validCompanyEmail ? "false" : "true"}
+              aria-invalid={validCompanyName ? "false" : "true"}
               aria-describedby="uidnote"
-              onFocus={() => setCompanyEmailFocus(true)}
-              onBlur={() => setCompanyEmailFocus(false)}
+              onFocus={() => setCompanyNameFocus(true)}
+              onBlur={() => setCompanyNameFocus(false)}
             />
             <p
               id="emailnote" /*uidnote -> emailnote*/
               className={
-                companyEmailFocus && companyEmail && !validCompanyEmail
+                companyNameFocus && companyName && !validCompanyName
                   ? "instructions"
                   : "offscreen"
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              Email must be of the following form example@mail.com
+              4 to 24 characters.
+              <br />
+              Must begin with a letter.
+              <br />
+              Letters, numbers, underscores, hyphens allowed.
             </p>
 
             <label htmlFor="password">
@@ -280,7 +284,7 @@ const RegisterUser = () => {
 
             <button
               disabled={
-                !validUserName || !validCompanyEmail || !validPwd || !validMatch
+                !validUserName || !validCompanyName || !validPwd || !validMatch
                   ? true
                   : false
               }

@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { Link } from "react-router-dom";
+import useAuth from '../hooks/useAuth';
 
 const NAME_REGEX =
   /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
@@ -15,6 +15,10 @@ const PRICE_REGEX = /^\d+$/;
 const REGISTER_URL = "/items";
 
 export default function ItemQuotePopup({ itemName }) {
+  const { auth, persist } = useAuth();
+  
+  let supName = auth?.company;
+
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -26,6 +30,7 @@ export default function ItemQuotePopup({ itemName }) {
   } else {
     document.body.classList.remove("active-modal");
   }
+ 
 
   const errRef = useRef();
   const axiosPrivate = useAxiosPrivate();
@@ -134,7 +139,7 @@ export default function ItemQuotePopup({ itemName }) {
                   id="username" /* username -> companyname*/
                   autoComplete="off"
                   onChange={(e) => setUserName(e.target.value)}
-                  value={userName}
+                  value={supName} /* userName -> supName*/
                   required
                   aria-invalid={validUserName ? "false" : "true"}
                   aria-describedby="uidnote"
