@@ -1,17 +1,15 @@
 import { useRef, useState, useEffect } from "react";
-import ".././popup.css";
+import "../.././popup.css";
 import {
   faCheck,
   faTimes,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import useAuth from '../hooks/useAuth';
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAuth from '../../hooks/useAuth';
 
-const NAME_REGEX =
-  /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
-const PRICE_REGEX = /^\d+$/;
+const PRICE_REGEX = /(\d+\.\d{1,2})/;
 const REGISTER_URL = "/items";
 
 export default function ItemQuotePopup({ itemName }) {
@@ -35,9 +33,6 @@ export default function ItemQuotePopup({ itemName }) {
   const errRef = useRef();
   const axiosPrivate = useAxiosPrivate();
 
-  const [userName, setUserName] = useState("");
-  const [validUserName, SetValidUserName] = useState(false);
-  const [userNameFocus, setUserNameFocus] = useState(false);
 
   const [price, setPrice] = useState("");
   const [validPrice, setValidPrice] = useState(false);
@@ -47,12 +42,6 @@ export default function ItemQuotePopup({ itemName }) {
   const [success, setSuccess] = useState(false);
 
 
-  useEffect(() => {
-    const result = NAME_REGEX.test(userName);
-    console.log(result);
-    console.log(userName);
-    SetValidUserName(result);
-  }, [userName]);
 
   useEffect(() => {
     const result = PRICE_REGEX.test(price);
@@ -63,20 +52,19 @@ export default function ItemQuotePopup({ itemName }) {
 
   useEffect(() => {
     setErrMsg("");
-  }, [userName, price]);
+  }, [price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const confirmUserName = NAME_REGEX.test(userName);
     const confirmPrice = PRICE_REGEX.test(price);
-    if (!itemName || !confirmUserName || !confirmPrice) {
+    if (!itemName || !supName || !confirmPrice) {
       setErrMsg("Invalid Entry/Entries");
       return;
     }
     try {
       const response = await axiosPrivate.post(
         REGISTER_URL,
-        JSON.stringify({ itemName: itemName, supplierName: userName, price : price}),
+        JSON.stringify({ itemName: itemName, supplierName: supName, price : price}),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -88,7 +76,6 @@ export default function ItemQuotePopup({ itemName }) {
       setSuccess(true);
       //clear state and controlled inputs
       //need value attrib on inputs for this
-      setUserName("");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -99,6 +86,7 @@ export default function ItemQuotePopup({ itemName }) {
       }
       errRef.current.focus();
     }
+    toggleModal();
   };
 
   return (
@@ -111,7 +99,6 @@ export default function ItemQuotePopup({ itemName }) {
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
             <h2>Add Quote</h2>
-            <p>{itemName}</p>
             <section>
               <p
                 ref={errRef}
@@ -120,49 +107,11 @@ export default function ItemQuotePopup({ itemName }) {
               >
                 {errMsg}
               </p>
-              <h1>Register User Account</h1>
+              <h1>Quote for {itemName}</h1>
 
               <form onSubmit={handleSubmit}>
-                <label htmlFor="username">
-                  Supplier Name:
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className={validUserName ? "valid" : "hide"}
-                  />
-                  <FontAwesomeIcon
-                    icon={faTimes}
-                    className={validUserName || !userName ? "hide" : "invalid"}
-                  />
-                </label>
-                <input
-                  type="text"
-                  id="username" /* username -> companyname*/
-                  autoComplete="off"
-                  onChange={(e) => setUserName(e.target.value)}
-                  value={supName} /* userName -> supName*/
-                  required
-                  aria-invalid={validUserName ? "false" : "true"}
-                  aria-describedby="uidnote"
-                  onFocus={() => setUserNameFocus(true)}
-                  onBlur={() => setUserNameFocus(false)}
-                />
-                <p
-                  id="cnidnote" /*uidnote -> cnidnote*/
-                  className={
-                    userNameFocus && userName && !validUserName
-                      ? "instructions"
-                      : "offscreen"
-                  }
-                >
-                  <FontAwesomeIcon icon={faInfoCircle} />
-                  4 to 24 characters.
-                  <br />
-                  Must begin with a letter.
-                  <br />
-                  Letters, numbers, underscores, hyphens allowed.
-                </p>
 
-                <label htmlFor="companyemail">
+                <label htmlFor="price">
                   Price:
                   <FontAwesomeIcon
                     icon={faCheck}
@@ -177,7 +126,7 @@ export default function ItemQuotePopup({ itemName }) {
                 </label>
                 <input
                   type="number"
-                  id="companyemail" /* username -> companyemail*/
+                  id="price" /* username -> price*/
                   autoComplete="off"
                   onChange={(e) => setPrice(e.target.value)}
                   value={price}
@@ -188,7 +137,7 @@ export default function ItemQuotePopup({ itemName }) {
                   onBlur={() => setPriceFocus(false)}
                 />
                 <p
-                  id="emailnote" /*uidnote -> emailnote*/
+                  id="pricenote" /*uidnote -> pricenote*/
                   className={
                     priceFocus && price && !validPrice
                       ? "instructions"
@@ -196,12 +145,11 @@ export default function ItemQuotePopup({ itemName }) {
                   }
                 >
                   <FontAwesomeIcon icon={faInfoCircle} />
-                  Email must be of the following form example@mail.com
+                  Price must be of format X.xx
                 </p>
 
                 <button
                   disabled={
-                    !validUserName ||
                     !validPrice
                       ? true
                       : false

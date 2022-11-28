@@ -1,11 +1,14 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import ItemRequests from "./ItemRequests"
 
-const CompanyPage = () => {
+const ItemRequestsPage = () => {
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
     return (
         <section>
-            <h1>Requests for items Above $5000</h1>
+            <h1>Supplier Page</h1>
+            <br />
+            <ItemRequests/>
             <br />
             <div className="flexGrow">
                 <button onClick={goBack}>Go Back</button>
@@ -14,4 +17,4 @@ const CompanyPage = () => {
     )
 }
 
-export default CompanyPage
+export default ItemRequestsPage

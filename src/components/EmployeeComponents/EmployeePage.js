@@ -24,6 +24,11 @@ const EmployeePage = () => {
           Purchase Item
         </Link>
       </button>
+      <button>
+        <Link style={StyledLink} to="/items-purchased-employee">
+          Items Purchased
+        </Link>
+      </button>
       <div className="flexGrow">
         <button onClick={goBack}>Go Back</button>
       </div>

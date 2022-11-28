@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import ItemQuotePopup from "./ItemQuotePopup";
 
-const ItemList = () => {
-  const [items, setItems] = useState();
+const ItemRequests = () => {
+  const [itemRequests, setItemRequests] = useState();
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,20 +13,20 @@ const ItemList = () => {
     let isMounted = true;
     const controller = new AbortController();
 
-    const getItems = async () => {
+    const getItemRequests = async () => {
       try {
-        const response = await axiosPrivate.get("/items", {
+        const response = await axiosPrivate.get("/itemRequests", {
           signal: controller.signal,
         });
         console.log(response.data);
-        isMounted && setItems(response.data);
+        isMounted && setItemRequests(response.data);
       } catch (err) {
         console.error(err);
         navigate("/login", { state: { from: location }, replace: true });
       }
     };
 
-    getItems();
+    getItemRequests();
 
     return () => {
       isMounted = false;
@@ -38,14 +38,12 @@ const ItemList = () => {
     <article>
       <h2>Requested Quotes</h2>
       <br />
-      {items?.length ? (
+      {itemRequests?.length ? (
         <ul>
-          {items.map((item, i) => (
+          {itemRequests.map((itemRequest, i) => (
             <li key={i}>
-              {item?.itemName}: {item?.price}$
-              <br/>
-              Supplier: {item?.supplierName}
-                <button>Buy</button>
+              {itemRequest?.itemName}
+                <ItemQuotePopup itemName={itemRequest?.itemName}/>
             </li>
           ))}
         </ul>
@@ -56,4 +54,4 @@ const ItemList = () => {
   );
 };
 
-export default ItemList;
+export default ItemRequests;

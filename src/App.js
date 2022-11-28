@@ -2,16 +2,21 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Layout from "./components/Layout";
-import SupplierPage from "./components/SupplierPage";
-import CompanyPage from "./components/CompanyPage";
+import SupplierPage from "./components/SupplierComponents/SupplierPage";
+import CompanyPage from "./components/CompanyComponents/CompanyPage";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
-import QuoteRequestPage from "./components/QuoteRequestPage";
+import QuoteRequestPage from "./components/EmployeeComponents/QuoteRequestPage";
 import LoginRegisterPage from "./components/LoginRegisterPage";
 import RequireAuth from "./components/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
-import EmployeePage from "./components/EmployeePage";
-import PurchaseItemsPage from "./components/PurchaseItemsPage";
+import EmployeePage from "./components/EmployeeComponents/EmployeePage";
+import PurchaseItemsPage from "./components/EmployeeComponents/PurchaseItemsPage";
+import ItemsPurchasedEmployee from "./components/EmployeeComponents/itemsPurchasedEmployee";
+import ItemRequestsPage from "./components/SupplierComponents/ItemRequestsPage";
+import SalesPage from "./components/SupplierComponents/SalesPage";
+import RequestApprovalPage from "./components/CompanyComponents/RequestApprovalPage";
+import ItemsPurchasedCompany from "./components/CompanyComponents/ItemsPurchasedCompany";
 import { Routes, Route } from "react-router-dom";
 
 
@@ -42,10 +47,14 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Supplier]} />}>
             <Route path="supplier" element={<SupplierPage />} />
+            <Route path="give-quotes" element={<ItemRequestsPage />} />
+            <Route path="sales" element={<SalesPage />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Company]} />}>
             <Route path="company" element={<CompanyPage />} />
+            <Route path="approve-requests" element={<RequestApprovalPage />} />
+            <Route path="items-purchased-company" element={<ItemsPurchasedCompany />} />
           </Route>
 
           <Route
@@ -54,6 +63,7 @@ function App() {
             <Route path="employee" element={<EmployeePage />} />
             <Route path="quote-request" element={<QuoteRequestPage />} />
             <Route path="purchase-items" element={<PurchaseItemsPage />} />
+            <Route path="items-purchased-employee" element={<ItemsPurchasedEmployee />} />
           </Route>
         </Route>
         {/* catch all */}

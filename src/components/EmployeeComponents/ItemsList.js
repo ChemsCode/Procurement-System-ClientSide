@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import ItemQuotePopup from "./ItemQuotePopup";
+import PurchasedItemsPopup from "./PurchaseItemsPopup";
 
-const ItemRequests = () => {
-  const [itemRequests, setItemRequests] = useState();
+const ItemList = () => {
+  const [items, setItems] = useState();
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,20 +13,20 @@ const ItemRequests = () => {
     let isMounted = true;
     const controller = new AbortController();
 
-    const getItemRequests = async () => {
+    const getItems = async () => {
       try {
-        const response = await axiosPrivate.get("/itemRequests", {
+        const response = await axiosPrivate.get("/items", {
           signal: controller.signal,
         });
         console.log(response.data);
-        isMounted && setItemRequests(response.data);
+        isMounted && setItems(response.data);
       } catch (err) {
         console.error(err);
         navigate("/login", { state: { from: location }, replace: true });
       }
     };
 
-    getItemRequests();
+    getItems();
 
     return () => {
       isMounted = false;
@@ -38,12 +38,18 @@ const ItemRequests = () => {
     <article>
       <h2>Requested Quotes</h2>
       <br />
-      {itemRequests?.length ? (
+      {items?.length ? (
         <ul>
-          {itemRequests.map((itemRequest, i) => (
+          {items.map((item, i) => (
             <li key={i}>
-              {itemRequest?.itemName}
-                <ItemQuotePopup itemName={itemRequest?.itemName}/>
+              {item?.itemName}: {item?.price}$
+              <br/>
+              Supplier: {item?.supplierName}
+                <PurchasedItemsPopup 
+                itemName={item?.itemName}
+                supplierName={item?.supplierName}
+                price={item?.price}
+                />
             </li>
           ))}
         </ul>
@@ -54,4 +60,4 @@ const ItemRequests = () => {
   );
 };
 
-export default ItemRequests;
+export default ItemList;
