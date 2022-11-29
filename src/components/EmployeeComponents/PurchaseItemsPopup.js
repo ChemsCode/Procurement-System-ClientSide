@@ -101,12 +101,7 @@ export default function PurchasedItemsPopup({ itemName, supplierName, price}) {
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <h2>Add Quote</h2>
-            <p>{buyerName}</p>
-            <p>{companyName}</p>
-            <p>{itemName}</p>
-            <p>{supplierName}</p>
-            <p>{price}</p>
+            <h2>Purchase Item</h2>
             <section>
               <p
                 ref={errRef}
@@ -115,7 +110,7 @@ export default function PurchasedItemsPopup({ itemName, supplierName, price}) {
               >
                 {errMsg}
               </p>
-              <h1>Quote for {itemName}</h1>
+              <h1>{itemName}</h1>
 
               <form onSubmit={handleSubmit}>
 
