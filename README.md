@@ -1,71 +1,66 @@
-# Getting Started with Create React App
+# Procurement System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application for managing procurement processes, built using the MERN stack (MongoDB, Express.js, React, Node.js) and JSON Web Tokens (JWT) for authentication and authorization.
 
-## Available Scripts
+The website is hosted on https://soen-341-project.netlify.app/
 
-In the project directory, you can run:
+## Getting Started
 
-### `npm start`
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js
+- MongoDB
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the server-side repository
 
-### `npm run build`
+git clone https://github.com/ChemsCode/Procurement-System-ServerSide.git
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Clone the client-side repository
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+git clone https://github.com/ChemsCode/Procurement-System-ClientSide.git
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Install the dependencies
 
-### `npm run eject`
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. in the server-side folder
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. in the client-side folder
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+npm start
 
-## Learn More
+6. The app will be running on http://localhost:3000/
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Authentication and Authorization
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The system uses JSON Web Tokens (JWT) for authentication and authorization. Users are required to sign in to access certain features of the app. Administrators are also be able to have more access to certain features 
 
-### Code Splitting
+## Documentation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Thorough documentation for the project is available, including:
+- User stories
+- Burndown charts
+- Use case diagrams
+- Project backlog
+- Sprint backlogs
 
-### Analyzing the Bundle Size
+This documentation can be found on https://docs.google.com/document/d/1mFNIz9JpifxXMSTxYjLZJwmTqRtf4hPjx7_DlGHDIKM/edit?usp=sharing.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Built With
 
-### Making a Progressive Web App
+- [MongoDB](https://www.mongodb.com/) - Document-based database
+- [Express.js](https://expressjs.com/) - Web framework for Node.js
+- [React](https://reactjs.org/) - JavaScript library for building user interfaces
+- [Node.js](https://nodejs.org/) - JavaScript runtime
+- [JWT](https://jwt.io/) - JSON Web Tokens for authentication and authorization
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Authors
 
-### Advanced Configuration
+- ChemsCode
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# SOEN-341---Project
