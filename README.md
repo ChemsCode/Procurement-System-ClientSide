@@ -17,23 +17,23 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Clone the server-side repository
 
-git clone https://github.com/ChemsCode/Procurement-System-ServerSide.git
+    git clone https://github.com/ChemsCode/Procurement-System-ServerSide.git
 
 2. Clone the client-side repository
 
-git clone https://github.com/ChemsCode/Procurement-System-ClientSide.git
+    git clone https://github.com/ChemsCode/Procurement-System-ClientSide.git
 
 3. Install the dependencies
 
-npm install
+    npm install
 
 4. in the server-side folder
 
-npm start
+    npm start
 
 5. in the client-side folder
 
-npm start
+    npm start
 
 6. The app will be running on http://localhost:3000/
 
