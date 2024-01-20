@@ -2,7 +2,7 @@
 
 A full-stack web application for managing procurement processes, built using the MERN stack (MongoDB, Express.js, React, Node.js) and JSON Web Tokens (JWT) for authentication and authorization.
 
-The website is hosted on https://soen-341-project.netlify.app/
+Backend repo can be found [here](https://github.com/ChemsCode/InterviewPro-Backend).
 
 ## Getting Started
 
