@@ -2,7 +2,7 @@
 
 A full-stack web application for managing procurement processes, built using the MERN stack (MongoDB, Express.js, React, Node.js) and JSON Web Tokens (JWT) for authentication and authorization.
 
-Backend repo can be found [here](https://github.com/ChemsCode/InterviewPro-Backend).
+Backend repo can be found [here](https://github.com/ChemsCode/Procurement-System-ServerSide).
 
 ## Getting Started
 
